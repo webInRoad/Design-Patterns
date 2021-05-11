@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>事件监听</title>
+	</head>
+	<body>
+		<button id="btn1">触发发布</button>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+		<script>
+			// 订阅这些函数,当点击时触发发布,会依次触发这些函数
+			$('#btn1').click(function () {
+				alert(1)
+			})
+			$('#btn1').click(function () {
+				alert(2)
+			})
+			$('#btn1').click(function () {
+				alert(3)
+			})
+		</script>
+	</body>
+</html>
