@@ -1,5 +1,5 @@
 // 定义基本发布者类
-class Publisher {
+class Subject {
 	constructor() {
 		this.observers = []
 	}
@@ -17,7 +17,7 @@ class Publisher {
 	}
 	// 通知所有订阅者
 	notify() {
-		console.log('Publisher.notify invoked')
+		console.log('Subject.notify invoked')
 		this.observers.forEach((observer) => {
 			observer.update(this)
 		})
@@ -32,7 +32,7 @@ class Observer {
 /* ========================================================================================================================================== */
 
 // 定义个具体的销售员发布类
-class SalesPublisher extends Publisher {
+class SalesPublisher extends Subject {
 	constructor() {
 		super()
 		// 楼盘起初是还未开盘
@@ -61,9 +61,9 @@ class BuyerObserver extends Observer {
 	}
 
 	// 重写一个具体的 update 方法
-	update(publisher) {
+	update(subject) {
 		// 获取楼盘的状态
-		let state = publisher.getState()
+		let state = subject.getState()
 		console.info(`${this.name} update, state: ${state}`)
 		this.doSomething()
 	}

@@ -1,36 +1,69 @@
 class EventEmitter {
 	constructor() {
+		// handleEvents 是一个 map ，用于存储事件与回调之间的对应关系
 		this.handleEvents = {}
 	}
+	/**
+	 * 注册事件监听者, 它接受事件类型和回调函数作为参数
+	 * @param {String} type 事件类型
+	 * @param {Function} callback 回调函数
+	 */
 	on(type, callback) {
+		// 先检查一下事件类型有没有对应的监听函数队列
 		if (!this.handleEvents[type]) {
+			// 如果没有，那么首先初始化一个监听函数队列, 否则直接 push 会报错(Uncaught TypeError: Cannot read property 'push' of undefined)
 			this.handleEvents[type] = []
 		}
+		// 把回调函数推入事件类型的监听函数队列里去
 		this.handleEvents[type].push(callback)
 	}
+	/**
+	 * 发布事件,它接受事件类型和监听函数入参作为参数
+	 * @param {String} type 事件类型
+	 * @param  {...any} args 参数列表，把emit传递的参数赋给回调函数
+	 */
 	emit(type, ...args) {
+		// 检查事件类型是否有监听函数队列
 		if (this.handleEvents[type]) {
+			// 如果有，则逐个调用队列里的回调函数
 			this.handleEvents[type].forEach((callback) => {
 				callback(...args)
 			})
 		}
 	}
+	/**
+	 * 移除某个事件回调队列里的指定回调函数
+	 * @param {String} type 事件类型
+	 * @param {Function} callback 回调函数
+	 */
 	off(type, callback) {
 		const callbacks = this.handleEvents[type]
 		const index = callbacks.indexOf(callback)
+		// 找到则移除
 		if (index !== -1) {
 			callbacks.splice(index, 1)
 		}
+		// 该事件类型对应的回调函数为空了,则将该对象删除
 		if (callbacks.length === 0) {
 			delete this.handleEvents[type]
 		}
 	}
+	/**
+	 * 移除某个事件的所有回调函数
+	 * @param {String} type 事件类型
+	 */
 	offAll(type) {
 		if (this.handleEvents[type]) {
 			delete this.handleEvents[type]
 		}
 	}
+	/**
+	 * 为事件注册单次监听器
+	 * @param {String} type 事件类型
+	 * @param {Function} callback 回调函数
+	 */
 	once(type, callback) {
+		// 对回调函数进行包装，使其执行完毕自动被移除
 		const wrapper = (...args) => {
 			callback.apply(args)
 			this.off(type, wrapper)
