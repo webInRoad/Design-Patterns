@@ -1,1 +1,1 @@
-import './单例模式/代理单例验证'
+import './装饰者模式/8-ES7-装饰方法-readonly'

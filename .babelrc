@@ -1,4 +1,4 @@
 {
     "presets":["es2015","latest"],
-    "plugins": ["transform-decorators-legacy"]
+    "plugins": ["transform-decorators-legacy"] // 加上插件支持 ES7 的装饰语法
 }

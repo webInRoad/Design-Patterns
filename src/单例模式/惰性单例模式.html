@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录框</title>
+
+</head>
+<style>
+    #modal {
+        height: 200px;
+        width: 200px;
+        line-height: 200px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid black;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <button id='login'>登录</button>
+</body>
+<script>
+    var createLoginModal = (function () {
+        let modal = null
+        return function () {
+            if (!modal) {
+                modal = document.createElement('div')
+                modal.innerHTML = "登录框"
+                modal.id = "modal"
+                modal.style.display = 'none'
+                document.body.appendChild(modal)
+            }
+            return modal
+        }
+    })()
+    document.getElementById("login").onclick = function () {
+        var modal = createLoginModal()
+        modal.style.display = 'block'
+    }
+</script>
+
+</html>
