@@ -1,1 +1,1 @@
-import './装饰者模式/8-ES7-装饰方法-readonly'
+import './适配器模式/1-插头.js'
