@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>事件代理模式</title>
+	</head>
+	<body>
+		<div id="div1">
+			<a href="#">a1</a>
+			<a href="#">a2</a>
+			<a href="#">a3</a>
+			<a href="#">a4</a>
+			<a href="#">a5</a>
+		</div>
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+		<script>
+            // var aTags = document.getElementById('div1').getElementsByTagName('a')
+            // for(let i=0;i<aTags.length;i++) {
+            //     aTags[i].addEventListener('click', function(e) {
+            //         e.preventDefault()
+            //         alert(aNodes[i].innerText)                  
+            //     })
+            // }
+			// var div1 = document.getElementById('div1')
+			// div1.addEventListener('click', function (e) {
+			// 	var target = e.target
+			// 	if (target.nodeName == 'A') {
+            //         e.preventDefault()
+			// 		alert(target.innerText)
+			// 	}
+			// })
+			// $('#div1').click(function () {
+			// 	$(this).addClass('red')
+			// })
+			$('#div1').click(function () {
+				// setTimeout(function () {
+				// 	$(this).addClass('red')
+				// }, 200) // 无效
+
+				// setTimeout(() => {
+				// 	$(this).addClass('red')
+				// }, 200) // 有效
+
+				// var _this = $(this)
+				// setTimeout(function () {
+				// 	_this.addClass('red')
+				// }, 200) // 有效
+				
+				setTimeout(
+					$.proxy(function () {
+						$(this).addClass('red')
+					}, this),
+					200
+				) // 有效
+				// 推荐使用箭头函数，或者$.proxy, 用_this,会增添个变量
+			})
+		</script>
+	</body>
+</html>
